@@ -2,3 +2,5 @@ ebin
 erl_crash.dump
 src/langlang_lexer.erl
 src/langlang_parser.erl
+_build
+.DS_Store
