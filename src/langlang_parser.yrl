@@ -3,23 +3,28 @@
 Nonterminals
   arithmetic
   add_op
+  mul_op
   number
   .
 
 Terminals
   integer
   float
-  '+' '-'
+  '+' '-' '*' '/'
   .
 
 Rootsymbol arithmetic.
 
 Left 100 add_op.
+Left 200 mul_op.
 
 %% Arithmetic
 
 arithmetic -> arithmetic add_op arithmetic :
   { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
+
+arithmetic -> arithmetic mul_op arithmetic :
+                  { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
 
 arithmetic -> number : '$1'.
 
@@ -31,6 +36,10 @@ number -> float : '$1'.
 %% Addition operator
 add_op -> '+' : '$1'.
 add_op -> '-' : '$1'.
+
+%% Multiplication operator
+mul_op -> '*' : '$1'.
+mul_op -> '/' : '$1'.
 
 Erlang code.
 
