@@ -81,4 +81,20 @@ defmodule ArithmeticTest do
     assert expected == tokens |> P.parse
   end
 
+  test "parentheses" do
+    {:ok, tokens, _} = L.string('(42)')
+
+    expected = {:ok, {:integer, 1, 42}}
+
+    assert expected == tokens |> P.parse
+  end
+
+  test "nested parentheses" do
+    {:ok, tokens, _} = L.string('(1 + (2 + 3))')
+
+    expected = {:ok, {:binary_op, 1, :+, {:integer, 1, 1}, {:binary_op, 1, :+, {:integer, 1, 2}, {:integer, 1, 3}}}}
+
+    assert expected == tokens |> P.parse
+  end
+
 end

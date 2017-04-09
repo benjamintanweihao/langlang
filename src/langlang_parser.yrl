@@ -10,7 +10,7 @@ Nonterminals
 Terminals
   integer
   float
-  '+' '-' '*' '/'
+  '+' '-' '*' '/' '(' ')'
   .
 
 Rootsymbol arithmetic.
@@ -26,6 +26,7 @@ arithmetic -> arithmetic add_op arithmetic :
 arithmetic -> arithmetic mul_op arithmetic :
   { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
 
+arithmetic -> '(' arithmetic ')' : '$2'.
 arithmetic -> number : '$1'.
 
 %% Numbers
