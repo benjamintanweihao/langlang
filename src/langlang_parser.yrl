@@ -9,7 +9,7 @@ Nonterminals
 Terminals
   integer
   float
-  '+'
+  '+' '-'
   .
 
 Rootsymbol arithmetic.
@@ -30,6 +30,7 @@ number -> float : '$1'.
 
 %% Addition operator
 add_op -> '+' : '$1'.
+add_op -> '-' : '$1'.
 
 Erlang code.
 

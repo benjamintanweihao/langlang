@@ -17,5 +17,6 @@ Rules.
 %% Operators
 
 \+    : { token, { '+', TokenLine } }.
+\-    : { token, { '-', TokenLine } }.
 
 Erlang code.

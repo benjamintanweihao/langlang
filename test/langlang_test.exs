@@ -44,4 +44,23 @@ defmodule LangLangTest do
     assert expected == tokens |> P.parse
   end
 
+  test "subtraction with two numbers" do
+    {:ok, tokens, _} = L.string('111-222.33')
+
+    expected = {:ok, {:binary_op, 1, :-,
+                      {:integer, 1, 111 }, {:float, 1, 222.33 }}}
+
+    assert expected == tokens |> P.parse
+  end
+
+  test "addition and subtraction" do
+    {:ok, tokens, _} = L.string('1+2-3')
+
+    expected = {:ok, {:binary_op, 1, :-,
+                      {:binary_op, 1, :+, {:integer, 1, 1}, {:integer, 1, 2}},
+                      {:integer, 1, 3}}}
+
+    assert expected == tokens |> P.parse
+  end
+
 end
