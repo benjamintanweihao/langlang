@@ -1,4 +1,4 @@
-defmodule LangLangTest do
+defmodule ArithmeticTest do
   use ExUnit.Case
 
   alias :langlang_lexer, as: L
