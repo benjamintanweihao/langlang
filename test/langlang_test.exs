@@ -35,4 +35,13 @@ defmodule LangLangTest do
     assert expected == tokens |> P.parse
   end
 
+  test "whitespace" do
+    {:ok, tokens, _} = L.string('  111  +  222.33  ')
+
+    expected = {:ok, {:binary_op, 1, :+,
+                      {:integer, 1, 111 }, {:float, 1, 222.33 }}}
+
+    assert expected == tokens |> P.parse
+  end
+
 end
