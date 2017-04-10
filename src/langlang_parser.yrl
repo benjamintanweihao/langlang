@@ -2,6 +2,7 @@
 
 Nonterminals
   expr
+  assign_expr
   add_expr
   mul_expr
   unary_expr
@@ -13,15 +14,22 @@ Nonterminals
   .
 
 Terminals
-  integer float
-  '+' '-' '*' '/' '(' ')'
+  integer float var
+  '+' '-' '*' '/' '(' ')' '='
   .
 
 Rootsymbol expr.
 
-%% Arithmetic
+%% Assignment
 
-expr -> add_expr : '$1'.
+expr -> assign_expr : '$1'.
+
+assign_expr -> add_expr '=' assign_expr :
+  { match, ?line('$2'), '$1', '$3' }.
+
+assign_expr -> add_expr : '$1'.
+
+%% Arithmetic
 
 add_expr -> add_expr add_op mul_expr :
   { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
@@ -39,6 +47,7 @@ unary_expr -> unary_op max_expr :
 unary_expr -> max_expr : '$1'.
 
 %% Minimum expressions
+max_expr -> var : '$1'.
 max_expr -> number : '$1'.
 max_expr -> '(' expr ')' : '$2'.
 
