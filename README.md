@@ -1,11 +1,10 @@
 # LangLang
 
-Nothing to see here, seriously.
+This is me learning how to build a programming language using BEAM.
 
-```elixir
-iex(1)> {:ok, tokens, _} = :langlang_lexer.string('315')
-{:ok, [{:integer, 1, 315}], 1}
+## Progress
 
-iex(2)> :langlang_parser.parse(tokens)
-{:ok, {:integer, 1, 315}}
-```
+- [x] Integers
+- [x] Floats
+- [x] Basic Arithmetic (+, -, /, *, ())
+- [ ] Variables and Assignment
