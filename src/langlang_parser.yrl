@@ -1,6 +1,8 @@
 % Grammar for the LangLang language done with yecc
 
 Nonterminals
+  grammar
+  expr_list
   expr
   assign_expr
   add_expr
@@ -14,15 +16,24 @@ Nonterminals
   .
 
 Terminals
-  integer float var
+  var float integer eol
   '+' '-' '*' '/' '(' ')' '='
   .
 
-Rootsymbol expr.
+Rootsymbol grammar.
 
-%% Assignment
+grammar -> expr_list : '$1'.
+grammar -> '$empty' : [].
+
+expr_list -> eol : [].
+expr_list -> expr : ['$1'].
+expr_list -> expr eol : ['$1'].
+expr_list -> eol expr_list : '$2'.
+expr_list -> expr eol expr_list : ['$1'|'$3'].
 
 expr -> assign_expr : '$1'.
+
+%% Assignment
 
 assign_expr -> add_expr '=' assign_expr :
   { match, ?line('$2'), '$1', '$3' }.

@@ -9,7 +9,7 @@ defmodule AssignmentTest do
 
     result = tokens |> P.parse
 
-    assert result == {:ok, {:match, 1, {:var, 1, :a}, {:integer, 1, 42}}}
+    assert result == {:ok, [{:match, 1, {:var, 1, :a}, {:integer, 1, 42}}]}
   end
 
 end

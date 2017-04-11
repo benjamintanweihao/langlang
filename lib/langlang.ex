@@ -3,7 +3,12 @@ defmodule LangLang do
   def eval(input), do: eval(input, [])
 
   def eval(input, binding) do
-    {:value, value, new_binding} = input |> parse |> transform |> :erl_eval.expr(binding)
+    {:value, value, new_binding} =
+      input
+      |> parse
+      |> Enum.map(&transform(&1))
+      |> :erl_eval.exprs(binding)
+
     {value, new_binding}
   end
 

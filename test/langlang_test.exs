@@ -21,4 +21,9 @@ defmodule LangLangTest do
     assert {42, [{:a, 42}, {:b, 1}, {:c, 3}]} == LL.eval('a = (38 + (b = 1) + c)', [{:c, 3}])
   end
 
+  test "multiline" do
+    assert {42, [{:a, 1}, {:b, 42}]} == LL.eval('a = 1\nb=42')
+    assert {42, [{:a, 1}, {:b, 42}]} == LL.eval('\n\na = 1\n\nb=42\n\n')
+  end
+
 end

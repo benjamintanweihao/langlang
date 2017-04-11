@@ -11,23 +11,28 @@ Rules.
 
 %% Numbers
 
-{Digit}+                                    : { token, { integer, TokenLine, list_to_integer(TokenChars) } }.
-{Digit}+\.{Digit}+                          : { token, { float, TokenLine, list_to_float(TokenChars) } }.
+{Digit}+                                    : {token, {integer, TokenLine, list_to_integer(TokenChars)}}.
+{Digit}+\.{Digit}+                          : {token, {float, TokenLine, list_to_float(TokenChars)}}.
 
 %% Variable names
-({Lowercase}|_)({Lowercase}|{Uppercase}|_)* : { token, { var, TokenLine, list_to_atom(TokenChars) } }.
+({Lowercase}|_)({Lowercase}|{Uppercase}|_)* : {token, {var, TokenLine, list_to_atom(TokenChars)}}.
 
+%% Skip
 
 {Whitespace}       : skip_token.
 
+%% Newlines
+({Whitespace})*(\n({Whitespace})*)+ :         {token, {eol, TokenLine}}.
+
+
 %% Operators
 
-\+    : { token, { '+', TokenLine } }.
-\-    : { token, { '-', TokenLine } }.
-\*    : { token, { '*', TokenLine } }.
-\/    : { token, { '/', TokenLine } }.
-\(    : { token, { '(', TokenLine } }.
-\)    : { token, { ')', TokenLine } }.
-\=    : { token, { '=', TokenLine } }.
+\+    : {token, {'+', TokenLine}}.
+\-    : {token, {'-', TokenLine}}.
+\*    : {token, {'*', TokenLine}}.
+\/    : {token, {'/', TokenLine}}.
+\(    : {token, {'(', TokenLine}}.
+\)    : {token, {')', TokenLine}}.
+\=    : {token, {'=', TokenLine}}.
 
 Erlang code.
