@@ -1,8 +1,10 @@
 defmodule LangLang do
 
-  def eval(input) do
-    {:value, value, _} = input |> parse |> transform |> :erl_eval.expr([])
-    value
+  def eval(input), do: eval(input, [])
+
+  def eval(input, binding) do
+    {:value, value, new_binding} = input |> parse |> transform |> :erl_eval.expr(binding)
+    {value, new_binding}
   end
 
   defp parse(input) do
@@ -13,9 +15,21 @@ defmodule LangLang do
 
   # Patterns can be found at http://erlang.org/doc/apps/erts/absform.html
 
-  defp transform({:integer, _, _} = expr), do: expr
   defp transform({:binary_op, line, op, lhs, rhs}) do
     {:op, line, op, transform(lhs), transform(rhs)}
   end
+
+  defp transform({:unary_op, line, op, rhs}) do
+    {:op, line, op, transform(rhs)}
+  end
+
+  defp transform({:match, line, lhs, rhs}) do
+    {:match, line, transform(lhs), transform(rhs)}
+  end
+
+  # Match all other expressions. Types:
+  #   integer
+  #   var
+  defp transform(expr), do: expr
 
 end
