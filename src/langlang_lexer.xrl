@@ -2,10 +2,11 @@
 
 Definitions.
 
-Digit = [0-9]
+Digit      = [0-9]
 Whitespace = [\s]
-Lowercase = [a-z]
-Uppercase = [A-Z]
+Lowercase  = [a-z]
+Uppercase  = [A-Z]
+Comment    = #.*
 
 Rules.
 
@@ -19,11 +20,11 @@ Rules.
 
 %% Skip
 
-{Whitespace}       : skip_token.
+{Comment}    : skip_token.
+{Whitespace} : skip_token.
 
-%% Newlines
-({Whitespace})*(\n({Whitespace})*)+ :         {token, {eol, TokenLine}}.
-
+%% Newlines and Comments
+({Comment}|{Whitespace})*(\n({Comment}|{Whitespace})*)+ : { token, { eol, TokenLine } }.
 
 %% Operators
 

@@ -11,4 +11,6 @@ This is me learning how to build a programming language using BEAM.
 - [x] Basic Arithmetic (`+`, `-`, `/`, `*`, `()`)
 - [x] Variables and Assignment
 - [x] Multi-line Expressions
-- [ ] Comments
+- [x] Comments
+- [ ] Functions/Methods
+- [ ] Modules/Classes

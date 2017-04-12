@@ -7,9 +7,16 @@ defmodule LangLang do
       input
       |> parse
       |> Enum.map(&transform(&1))
-      |> :erl_eval.exprs(binding)
+      |> erl_eval(binding)
 
     {value, new_binding}
+  end
+
+  # Handle empty files
+  defp erl_eval([], binding), do: {:value, [], binding}
+
+  defp erl_eval(transformed, binding) do
+    :erl_eval.exprs(transformed, binding)
   end
 
   defp parse(input) do
@@ -36,5 +43,10 @@ defmodule LangLang do
   #   integer
   #   var
   defp transform(expr), do: expr
+
+  defp debug(input) do
+    IO.inspect input
+    input
+  end
 
 end

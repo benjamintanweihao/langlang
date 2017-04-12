@@ -26,4 +26,11 @@ defmodule LangLangTest do
     assert {42, [{:a, 1}, {:b, 42}]} == LL.eval('\n\na = 1\n\nb=42\n\n')
   end
 
+  test "comments" do
+    assert {[], []} == LL.eval('#a = 1\n#b=42')
+    assert {[], []} == LL.eval('#')
+    assert {1, [{:a, 1}]} == LL.eval('#\na = 1\n#b=42\n#')
+    assert {42, [{:a, 1}, {:c, 42}]} == LL.eval('#\na = 1\n#b=2\n#\nc=42')
+  end
+
 end
