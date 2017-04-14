@@ -16,7 +16,7 @@ Rules.
 {Digit}+\.{Digit}+                          : {token, {float, TokenLine, list_to_float(TokenChars)}}.
 
 %% Variable names
-({Lowercase}|_)({Lowercase}|{Uppercase}|_)* : {token, {var, TokenLine, list_to_atom(TokenChars)}}.
+({Lowercase}|_)({Lowercase}|{Uppercase}|_)* : {token, build_id(TokenLine, TokenChars)}.
 
 %% Skip
 
@@ -38,3 +38,14 @@ Rules.
 ->    : {token, {'->', TokenLine}}.
 
 Erlang code.
+
+build_id(Line, Chars) ->
+    Atom = list_to_atom(Chars),
+    case reserved_word(Atom) of
+        true -> {Atom, Line};
+        false -> {var, Line, Atom}
+    end.
+
+reserved_word('end')  -> true;
+reserved_word('func') -> true;
+reserved_word(_)      -> false. % Anything else is not reserved

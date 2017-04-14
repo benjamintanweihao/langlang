@@ -41,4 +41,12 @@ defmodule LangLangTest do
     assert fun.().() == 3
   end
 
+  test "anonymous function" do
+    {fun, [a: fun]} = LL.eval('a = func -> 1 + 2 end')
+    assert fun.() == 3
+
+    {fun, [a: fun]} = LL.eval('a = func -> func -> 1 + 2 end end')
+    assert fun.().() == 3
+  end
+
 end

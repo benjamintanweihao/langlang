@@ -19,6 +19,7 @@ Nonterminals
 
 Terminals
   var float integer eol
+  'func' 'end'
   '+' '-' '*' '/' '(' ')' '=' '->'
   .
 
@@ -60,6 +61,11 @@ unary_expr -> unary_op max_expr :
 unary_expr -> fun_expr : '$1'.
 
 %% Function definitions
+
+fun_expr -> 'func' stabber expr 'end' :
+  { 'fun', ?line('$1'),
+    { clauses, [ { clause, ?line('$1'), [] ,[], ['$3'] } ] }
+  }.
 
 fun_expr -> stabber expr :
   { 'fun', ?line('$1'),
