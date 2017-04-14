@@ -13,7 +13,9 @@ This is me learning how to build a programming language using BEAM.
 - [x] Multi-line Expressions
 - [x] Comments
 - [x] Anonymous functions
+- [x] Boolean (`true` | `false`)
+- [ ] Expression separator
 - [ ] Named functions
-- [ ] Boolean
+- [ ] Boolean expressions
 - [ ] `if` expressions
 - [ ] Modules/Classes

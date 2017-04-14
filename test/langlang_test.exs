@@ -59,4 +59,9 @@ defmodule LangLangTest do
     assert fun.(1, 2, 39) == 42
   end
 
+  test "booleans" do
+    assert {true, [{:a, true}]} == LL.eval('a = true')
+    assert {false, [{:b, false}]} == LL.eval('b = false')
+  end
+
 end

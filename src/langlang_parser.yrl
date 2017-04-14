@@ -17,11 +17,13 @@ Nonterminals
   mul_op
   unary_op
   number
+  boolean
   .
 
 Terminals
   var float integer eol
   'func' 'end'
+  'true' 'false'
   '+' '-' '*' '/' '(' ')' '=' '->' ','
   .
 
@@ -88,6 +90,7 @@ given_args_tail -> eol ')' : [].
 %% Minimum expressions
 max_expr -> var : '$1'.
 max_expr -> number : '$1'.
+max_expr -> boolean : '$1'.
 max_expr -> '(' expr ')' : '$2'.
 
 %% Stab syntax
@@ -96,6 +99,9 @@ stabber -> '->' : '$1'.
 %% Numbers
 number -> integer : '$1'.
 number -> float : '$1'.
+
+boolean -> true : '$1'.
+boolean -> false : '$1'.
 
 %% Unary operator
 unary_op -> '+' : '$1'.

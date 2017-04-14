@@ -55,6 +55,14 @@ defmodule LangLang do
     {:match, line, transform(lhs), transform(rhs)}
   end
 
+  defp transform({true, line}) do
+    {:atom, line, :true}
+  end
+
+  defp transform({false, line}) do
+    {:atom, line, :false}
+  end
+
   # Match all other expressions. Types:
   #   integer
   #   var

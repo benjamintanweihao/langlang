@@ -47,6 +47,8 @@ build_id(Line, Chars) ->
         false -> {var, Line, Atom}
     end.
 
-reserved_word('end')  -> true;
-reserved_word('func') -> true;
-reserved_word(_)      -> false. % Anything else is not reserved
+reserved_word('end')   -> true;
+reserved_word('true')  -> true;
+reserved_word('false') -> true;
+reserved_word('func')  -> true;
+reserved_word(_)       -> false. % Anything else is not reserved
