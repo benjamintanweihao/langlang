@@ -1,5 +1,5 @@
 defmodule WhitespaceTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias :langlang_lexer, as: L
   alias :langlang_parser, as: P

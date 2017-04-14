@@ -1,5 +1,5 @@
 defmodule LangLangTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias LangLang, as: LL
 
@@ -33,20 +33,30 @@ defmodule LangLangTest do
     assert {42, [{:a, 1}, {:c, 42}]} == LL.eval('#\na = 1\n#b=2\n#\nc=42')
   end
 
-  test "stabby function" do
-    {fun, [a: fun]} = LL.eval('a = -> 1 + 2')
-    assert fun.() == 3
-
-    {fun, [a: fun]} = LL.eval('a = -> -> 1 + 2')
-    assert fun.().() == 3
-  end
-
   test "anonymous function" do
     {fun, [a: fun]} = LL.eval('a = func -> 1 + 2 end')
     assert fun.() == 3
 
     {fun, [a: fun]} = LL.eval('a = func -> func -> 1 + 2 end end')
     assert fun.().() == 3
+  end
+
+  test "anonymous function with empty arguments" do
+    {fun, [a: fun]} = LL.eval('a = func() -> 3 end')
+
+    assert fun.() == 3
+  end
+
+  test "anonymous function with one argument" do
+    {fun, [a: fun]} = LL.eval('a = func(b) -> b end')
+
+    assert fun.(3) == 3
+  end
+
+  test "anonymous function with multiple arguments" do
+    {fun, [a: fun]} = LL.eval('a = func(b, c, d) -> b + c + d end')
+
+    assert fun.(1, 2, 39) == 42
   end
 
 end

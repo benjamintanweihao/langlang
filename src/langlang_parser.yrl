@@ -9,6 +9,8 @@ Nonterminals
   mul_expr
   unary_expr
   fun_expr
+  given_args
+  given_args_tail
   stabber
   max_expr
   add_op
@@ -20,7 +22,7 @@ Nonterminals
 Terminals
   var float integer eol
   'func' 'end'
-  '+' '-' '*' '/' '(' ')' '=' '->'
+  '+' '-' '*' '/' '(' ')' '=' '->' ','
   .
 
 Rootsymbol grammar.
@@ -64,15 +66,24 @@ unary_expr -> fun_expr : '$1'.
 
 fun_expr -> 'func' stabber expr 'end' :
   { 'fun', ?line('$1'),
-    { clauses, [ { clause, ?line('$1'), [] ,[], ['$3'] } ] }
+    { clauses, [ { clause, ?line('$1'), [], [], ['$3'] } ] }
   }.
 
-fun_expr -> stabber expr :
+fun_expr -> 'func' given_args stabber expr 'end' :
   { 'fun', ?line('$1'),
-    { clauses, [ { clause, ?line('$1'), [] ,[], ['$2'] } ] }
+    { clauses, [ { clause, ?line('$1'), '$2', [], ['$4'] } ] }
   }.
 
 fun_expr -> max_expr : '$1'.
+
+%% Args given to function declarations
+given_args -> '(' ')' : [].
+given_args -> '(' eol ')' : [].
+given_args -> '(' var given_args_tail : ['$2'|'$3'].
+
+given_args_tail -> ',' var given_args_tail : ['$2'|'$3'].
+given_args_tail -> ')' : [].
+given_args_tail -> eol ')' : [].
 
 %% Minimum expressions
 max_expr -> var : '$1'.

@@ -39,6 +39,10 @@ defmodule LangLang do
     {:clause, line, [], [], expr |> Enum.map(&transform(&1))}
   end
 
+  defp transform({:clause, line, args, [], expr}) do
+    {:clause, line, transform(args), [], expr |> Enum.map(&transform(&1))}
+  end
+
   defp transform({:binary_op, line, op, lhs, rhs}) do
     {:op, line, op, transform(lhs), transform(rhs)}
   end

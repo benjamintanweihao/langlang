@@ -12,7 +12,8 @@ This is me learning how to build a programming language using BEAM.
 - [x] Variables and Assignment
 - [x] Multi-line Expressions
 - [x] Comments
-- [ ] Functions/Methods
+- [x] Anonymous functions
+- [ ] Named functions
 - [ ] Boolean
 - [ ] `if` expressions
 - [ ] Modules/Classes
