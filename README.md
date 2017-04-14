@@ -13,4 +13,6 @@ This is me learning how to build a programming language using BEAM.
 - [x] Multi-line Expressions
 - [x] Comments
 - [ ] Functions/Methods
+- [ ] Boolean
+- [ ] `if` expressions
 - [ ] Modules/Classes
