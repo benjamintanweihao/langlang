@@ -20,8 +20,8 @@ Rules.
 
 %% Skip
 
-{Comment}    : skip_token.
-{Whitespace} : skip_token.
+{Comment}     : skip_token.
+{Whitespace}+ : skip_token.
 
 %% Newlines and Comments
 ({Comment}|{Whitespace})*(\n({Comment}|{Whitespace})*)+ : { token, { eol, TokenLine } }.
