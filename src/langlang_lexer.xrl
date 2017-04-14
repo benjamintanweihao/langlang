@@ -24,7 +24,7 @@ Rules.
 {Whitespace}+ : skip_token.
 
 %% Newlines and Comments
-({Comment}|{Whitespace})*(\n({Comment}|{Whitespace})*)+ : { token, { eol, TokenLine } }.
+({Comment}|{Whitespace})*(\n({Comment}|{Whitespace})*)+ : {token, {eol, TokenLine}}.
 
 %% Operators
 
@@ -35,5 +35,6 @@ Rules.
 \(    : {token, {'(', TokenLine}}.
 \)    : {token, {')', TokenLine}}.
 \=    : {token, {'=', TokenLine}}.
+->    : {token, {'->', TokenLine}}.
 
 Erlang code.

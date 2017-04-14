@@ -27,6 +27,18 @@ defmodule LangLang do
 
   # Patterns can be found at http://erlang.org/doc/apps/erts/absform.html
 
+  defp transform({:fun, line, clauses}) do
+    {:fun, line, transform(clauses)}
+  end
+
+  defp transform({:clauses, clauses}) do
+    {:clauses, clauses |> Enum.map(&transform(&1))}
+  end
+
+  defp transform({:clause, line, [], [], expr}) do
+    {:clause, line, [], [], expr |> Enum.map(&transform(&1))}
+  end
+
   defp transform({:binary_op, line, op, lhs, rhs}) do
     {:op, line, op, transform(lhs), transform(rhs)}
   end

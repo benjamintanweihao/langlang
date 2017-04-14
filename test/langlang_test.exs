@@ -33,4 +33,12 @@ defmodule LangLangTest do
     assert {42, [{:a, 1}, {:c, 42}]} == LL.eval('#\na = 1\n#b=2\n#\nc=42')
   end
 
+  test "stabby function" do
+    {fun, [a: fun]} = LL.eval('a = -> 1 + 2')
+    assert fun.() == 3
+
+    {fun, [a: fun]} = LL.eval('a = -> -> 1 + 2')
+    assert fun.().() == 3
+  end
+
 end
