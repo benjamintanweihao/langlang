@@ -64,4 +64,12 @@ defmodule LangLangTest do
     assert {false, [{:b, false}]} == LL.eval('b = false')
   end
 
+  test "if true expression" do
+    assert {2, [{:a, 1}, {:b, 2}]} == LL.eval('if true then a = 1\nb = 2 end')
+  end
+
+  test "if false expression" do
+    assert {nil, []} == LL.eval('if false then a = 1\nb = 2 end')
+  end
+
 end

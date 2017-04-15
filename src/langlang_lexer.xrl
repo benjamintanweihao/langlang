@@ -12,8 +12,8 @@ Rules.
 
 %% Numbers
 
-{Digit}+                                    : {token, {integer, TokenLine, list_to_integer(TokenChars)}}.
-{Digit}+\.{Digit}+                          : {token, {float, TokenLine, list_to_float(TokenChars)}}.
+{Digit}+              : {token, {integer, TokenLine, list_to_integer(TokenChars)}}.
+{Digit}+\.{Digit}+    : {token, {float, TokenLine, list_to_float(TokenChars)}}.
 
 %% Variable names
 ({Lowercase}|_)({Lowercase}|{Uppercase}|_)* : {token, build_id(TokenLine, TokenChars)}.
@@ -47,6 +47,8 @@ build_id(Line, Chars) ->
         false -> {var, Line, Atom}
     end.
 
+reserved_word('if')   -> true;
+reserved_word('then')  -> true;
 reserved_word('end')   -> true;
 reserved_word('true')  -> true;
 reserved_word('false') -> true;

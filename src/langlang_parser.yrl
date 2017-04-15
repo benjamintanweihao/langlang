@@ -18,12 +18,14 @@ Nonterminals
   unary_op
   number
   boolean
+  if_expr
   .
 
 Terminals
   var float integer eol
   'func' 'end'
   'true' 'false'
+  'if' 'then'
   '+' '-' '*' '/' '(' ')' '=' '->' ','
   .
 
@@ -39,6 +41,14 @@ expr_list -> eol expr_list : '$2'.
 expr_list -> expr eol expr_list : ['$1'|'$3'].
 
 expr -> assign_expr : '$1'.
+expr -> if_expr : '$1'.
+
+%% Conditionals (WIP)
+if_expr -> 'if' 'true' 'then' expr_list 'end' :
+  { 'if_clause', ?line('$1'), true, '$2', '$4' }.
+
+if_expr -> 'if' 'false' 'then' expr_list 'end' :
+  { 'if_clause', ?line('$1'), false, '$2', '$4' }.
 
 %% Assignment
 
