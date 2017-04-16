@@ -45,14 +45,12 @@ expr -> assign_expr : '$1'.
 expr -> if_expr : '$1'.
 expr -> comp_expr : '$1'.
 
-%% Comparison Expressions
-
-comp_expr -> expr '==' expr :
-  { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
-
 %% Conditionals (WIP)
 
 if_expr -> 'if' boolean 'then' expr_list 'end' :
+  { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4' }.
+
+if_expr -> 'if' comp_expr 'then' expr_list 'end' :
   { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4' }.
 
 %% Assignment
@@ -61,6 +59,11 @@ assign_expr -> add_expr '=' assign_expr :
   { match, ?line('$2'), '$1', '$3' }.
 
 assign_expr -> add_expr : '$1'.
+
+%% Comparison Expressions
+
+comp_expr -> expr '==' expr :
+                 { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
 
 %% Arithmetic
 

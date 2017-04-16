@@ -77,4 +77,9 @@ defmodule LangLangTest do
     assert {false, []} == LL.eval('42 == 43')
   end
 
+  test "if equality expression" do
+    assert {2, [{:a, 1}, {:b, 2}]} == LL.eval('if 42 == 42 then a = 1\nb = 2 end')
+    assert {nil, []} == LL.eval('if 43 == 42 then a = 1\nb = 2 end')
+  end
+
 end
