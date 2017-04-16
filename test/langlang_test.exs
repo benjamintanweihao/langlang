@@ -92,4 +92,9 @@ defmodule LangLangTest do
     assert {nil, []} == LL.eval('if 42 != 42 then a = 1\nb = 2 end')
   end
 
+  test "lesser / greater than comparison" do
+    assert {true, []} == LL.eval('42 < 43')
+    assert {true, []} == LL.eval('43 > 42')
+  end
+
 end
