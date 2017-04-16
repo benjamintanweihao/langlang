@@ -97,4 +97,12 @@ defmodule LangLangTest do
     assert {true, []} == LL.eval('43 > 42')
   end
 
+  test "if then else" do
+    assert {1, [{:a, 1}]} == LL.eval('if true then a = 1 else b = 2 end')
+    assert {2, [{:b, 2}]} == LL.eval('if false then a = 1 else b = 2 end')
+
+    assert {1, [{:a, 1}]} == LL.eval('if 1 < 2 then a = 1 else b = 2 end')
+    assert {2, [{:b, 2}]} == LL.eval('if 1 > 2 then a = 1 else b = 2 end')
+  end
+
 end

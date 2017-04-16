@@ -16,7 +16,7 @@ This is me learning how to build a programming language using BEAM.
 - [x] Boolean (`true` | `false`)
 - [x] `if` expressions
 - [x] Boolean expressions
-- [ ] `else` expressions
+- [x] `else` expressions
 - [ ] Expression separator
 - [ ] Named functions
 - [ ] Modules/Classes

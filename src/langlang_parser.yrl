@@ -27,7 +27,7 @@ Terminals
   var float integer eol
   'func' 'end'
   'true' 'false'
-  'if' 'then'
+  'if' 'then' 'else'
   '+' '-' '*' '/' '(' ')' '=' '->' ',' '==' '!=' '<' '>'
   .
 
@@ -57,8 +57,14 @@ expr -> comp_expr : '$1'.
 if_expr -> 'if' boolean 'then' expr_list 'end' :
   { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4' }.
 
+if_expr -> 'if' boolean 'then' expr_list 'else' expr_list 'end' :
+  { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4', '$6' }.
+
 if_expr -> 'if' comp_expr 'then' expr_list 'end' :
   { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4' }.
+
+if_expr -> 'if' comp_expr 'then' expr_list 'else' expr_list 'end' :
+  { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4', '$6' }.
 
 %% Assignment
 

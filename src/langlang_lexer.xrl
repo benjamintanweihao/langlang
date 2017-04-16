@@ -51,8 +51,9 @@ build_id(Line, Chars) ->
         false -> {var, Line, Atom}
     end.
 
-reserved_word('if')   -> true;
+reserved_word('if')    -> true;
 reserved_word('then')  -> true;
+reserved_word('else')  -> true;
 reserved_word('end')   -> true;
 reserved_word('true')  -> true;
 reserved_word('false') -> true;

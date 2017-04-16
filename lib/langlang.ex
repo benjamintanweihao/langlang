@@ -42,6 +42,13 @@ defmodule LangLang do
     ]}
   end
 
+  defp transform({:if_clause, line, _, bool, then_expr, else_expr}) do
+    {:case, line, transform(bool), [
+        {:clause, line, [{:atom, line, :true}], [], then_expr |> Enum.map(&transform(&1))},
+        {:clause, line, [{:var, line, :_}], [], else_expr |> Enum.map(&transform(&1))}
+      ]}
+  end
+
   defp transform({:clause, line, [], [], expr}) do
     {:clause, line, [], [], expr |> Enum.map(&transform(&1))}
   end
