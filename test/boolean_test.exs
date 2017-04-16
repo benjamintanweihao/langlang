@@ -20,4 +20,12 @@ defmodule BooleanTest do
     assert result == tokens |> P.parse
   end
 
+  test "equality" do
+    {:ok, tokens, _} = L.string('42 == 42')
+
+    result = {:ok, [{:binary_op, 1, :==, {:integer, 1, 42}, {:integer, 1, 42}}]}
+
+    assert result == tokens |> P.parse
+  end
+
 end

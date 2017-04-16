@@ -19,6 +19,7 @@ Nonterminals
   number
   boolean
   if_expr
+  comp_expr
   .
 
 Terminals
@@ -26,7 +27,7 @@ Terminals
   'func' 'end'
   'true' 'false'
   'if' 'then'
-  '+' '-' '*' '/' '(' ')' '=' '->' ','
+  '+' '-' '*' '/' '(' ')' '=' '->' ',' '=='
   .
 
 Rootsymbol grammar.
@@ -42,8 +43,15 @@ expr_list -> expr eol expr_list : ['$1'|'$3'].
 
 expr -> assign_expr : '$1'.
 expr -> if_expr : '$1'.
+expr -> comp_expr : '$1'.
+
+%% Comparison Expressions
+
+comp_expr -> expr '==' expr :
+  { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
 
 %% Conditionals (WIP)
+
 if_expr -> 'if' boolean 'then' expr_list 'end' :
   { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4' }.
 
