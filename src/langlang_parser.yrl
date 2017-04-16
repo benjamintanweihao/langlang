@@ -27,13 +27,13 @@ Terminals
   'func' 'end'
   'true' 'false'
   'if' 'then'
-  '+' '-' '*' '/' '(' ')' '=' '->' ',' '=='
+  '+' '-' '*' '/' '(' ')' '=' '->' ',' '==' '!='
   .
 
 Rootsymbol grammar.
 
 Right 100 '='.
-Nonassoc 200 '=='.
+Nonassoc 200 '==' '!='.
 Left 300 '+'.
 Left 400 '*' '/'.
 Unary 500 '-'.
@@ -70,6 +70,9 @@ assign_expr -> add_expr : '$1'.
 
 comp_expr -> expr '==' expr :
                  { binary_op, ?line('$1'), ?op('$2'), '$1', '$3' }.
+
+comp_expr -> expr '!=' expr :
+                 { binary_op, ?line('$1'), build_op('$2'), '$1', '$3' }.
 
 %% Arithmetic
 
@@ -143,3 +146,9 @@ Erlang code.
 
 -define(op(Node), element(1, Node)).
 -define(line(Node), element(2, Node)).
+
+build_op(Node) ->
+    case Node of
+        {'!=', Line} -> ?op({'/=', Line});
+        Else -> ?op(Node)
+    end.

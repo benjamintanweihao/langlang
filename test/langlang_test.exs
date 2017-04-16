@@ -78,9 +78,18 @@ defmodule LangLangTest do
     assert {true, [{:a, 1}, {:b, 1}]} == LL.eval('(a = 1) == (b = 1)')
   end
 
+  test "inequality comparison" do
+    assert {false, []} == LL.eval('42 != 42')
+  end
+
   test "if equality expression" do
     assert {2, [{:a, 1}, {:b, 2}]} == LL.eval('if 42 == 42 then a = 1\nb = 2 end')
     assert {nil, []} == LL.eval('if 43 == 42 then a = 1\nb = 2 end')
+  end
+
+  test "if inequality expression" do
+    assert {2, [{:a, 1}, {:b, 2}]} == LL.eval('if 42 != 43 then a = 1\nb = 2 end')
+    assert {nil, []} == LL.eval('if 42 != 42 then a = 1\nb = 2 end')
   end
 
 end
