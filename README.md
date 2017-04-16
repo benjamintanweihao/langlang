@@ -19,4 +19,7 @@ This is me learning how to build a programming language using BEAM.
 - [x] `else` expressions
 - [ ] Expression separator
 - [ ] Named functions
-- [ ] Modules/Classes
+- [ ] Classes
+- [ ] Instance Variables
+- [ ] Class Variables
+- [ ] Global Variables
