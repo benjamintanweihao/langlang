@@ -44,11 +44,8 @@ expr -> assign_expr : '$1'.
 expr -> if_expr : '$1'.
 
 %% Conditionals (WIP)
-if_expr -> 'if' 'true' 'then' expr_list 'end' :
-  { 'if_clause', ?line('$1'), true, '$2', '$4' }.
-
-if_expr -> 'if' 'false' 'then' expr_list 'end' :
-  { 'if_clause', ?line('$1'), false, '$2', '$4' }.
+if_expr -> 'if' boolean 'then' expr_list 'end' :
+  { 'if_clause', ?line('$1'), ?op('$2'), '$2', '$4' }.
 
 %% Assignment
 
