@@ -105,4 +105,10 @@ defmodule LangLangTest do
     assert {2, [{:b, 2}]} == LL.eval('if 1 > 2 then a = 1 else b = 2 end')
   end
 
+  test "multiple expressions on a single line" do
+    assert {3, [{:a, 1}, {:b, 2}, {:c, 3}]} == LL.eval('a = 1; b = 2; c = 3;')
+    assert {3, [{:a, 1}, {:b, 2}, {:c, 3}]} == LL.eval('a = 1; b = 2; c = 3')
+    assert {3, [{:a, 1}, {:b, 2}, {:c, 3}]} == LL.eval(';a = 1; b = 2; c = 3')
+  end
+
 end

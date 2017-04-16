@@ -28,7 +28,7 @@ Terminals
   'func' 'end'
   'true' 'false'
   'if' 'then' 'else'
-  '+' '-' '*' '/' '(' ')' '=' '->' ',' '==' '!=' '<' '>'
+  '+' '-' '*' '/' '(' ')' '=' '->' ',' '==' '!=' '<' '>' ';'
   .
 
 Rootsymbol grammar.
@@ -43,10 +43,14 @@ grammar -> expr_list : '$1'.
 grammar -> '$empty' : [].
 
 expr_list -> eol : [].
+expr_list -> ';' : [].
 expr_list -> expr : ['$1'].
 expr_list -> expr eol : ['$1'].
+expr_list -> expr ';' : ['$1'].
 expr_list -> eol expr_list : '$2'.
+expr_list -> ';' expr_list : '$2'.
 expr_list -> expr eol expr_list : ['$1'|'$3'].
+expr_list -> expr ';' expr_list : ['$1'|'$3'].
 
 expr -> assign_expr : '$1'.
 expr -> if_expr : '$1'.
