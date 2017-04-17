@@ -18,6 +18,11 @@ This is me learning how to build a programming language using BEAM.
 - [x] Boolean expressions
 - [x] `else` expressions
 - [x] Expression separator
+- [ ] REPL
+- [ ] Strings
+- [ ] Lists
+- [ ] Tuples
+- [ ] Maps
 - [ ] Named functions
 - [ ] Classes
 - [ ] Instance Variables
